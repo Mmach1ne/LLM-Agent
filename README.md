@@ -1,133 +1,84 @@
-# AI Agent Framework
+# AI Agent Framework (**Minimal Demo**)
 
-A modular, extensible Python framework for building advanced AI agents with memory, skills, goals, and interactive capabilities.
+A lightweight **demonstration** of a modular Python agent architecture designed for clarity, easy hacking, and *zero* external‑API costs.
 
----
-
-## Features
-
-- **Agent Personality:** Define traits, learning rate, and curiosity.
-- **Task Management:** Add, prioritize, and track goals and tasks.
-- **Memory System:** Store and recall interactions and learned patterns using SQLite.
-- **Skill Registry:** Register built-in and custom skills (e.g., text analysis, entity extraction, calculator, weather).
-- **Interactive Chat:** Command-line chat interface for live interaction.
-- **Extensible:** Easily add new skills, integrate APIs, or create specialized agent subclasses.
-- **Persistence:** Save and load agent state.
-- **Multi-Agent Collaboration:** Create teams of specialist agents.
+> **Heads‑up 🚫🪙** This demo does **not** call Gemini, OpenAI, or any other paid model. It keeps your token bill at *\$0* while still showing the core ideas behind an extensible AI agent.
 
 ---
 
-## Getting Started
+## What’s Inside 🧩
 
-### 1. Clone or Download
+| Concept                       | Shown in Demo? | Notes                                 |
+| ----------------------------- | -------------- | ------------------------------------- |
+| Agent personality & curiosity | ✅              | Configurable through a simple `dict`  |
+| Task manager & priorities     | ✅              | Add, pop, and inspect tasks           |
+| SQLite memory store           | ✅              | Persist conversations locally         |
+| Skill registry                | ✅              | Register Python callables as “skills” |
+| Interactive CLI chat          | ✅              | One‐file command‑line interface       |
+| Multi‑agent teams             | 🚧             | Out of scope for the minimal build    |
+| Gemini / OpenAI calls         | ❌              | *Removed* to avoid token usage        |
+| Web scraping, APIs            | ❌              | Add later via the skill system        |
 
-Place `aiAgent.py` and `implementation.py` in the same directory.
+---
 
-### 2. Install Requirements
+## Quick Start ⚡️
 
-No external dependencies are required for the core framework.  
-For advanced integrations (OpenAI, web scraping), install:
+### 1  —  Clone or Download
+
+Place **`aiAgent.py`** and **`implementation.py`** in the same directory.
+
 ```bash
-pip install openai requests beautifulsoup4
+# Option A: clone the whole repo
+git clone https://github.com/your‑user/ai‑agent‑demo.git
+cd ai‑agent‑demo
+
+# Option B: download the two files directly
+curl -O https://raw.githubusercontent.com/your‑user/ai‑agent‑demo/main/aiAgent.py
+curl -O https://raw.githubusercontent.com/your‑user/ai‑agent‑demo/main/implementation.py
 ```
 
-### 3. Run the Demo
+### 2  —  Install Requirements (optional)
+
+The **core demo** relies only on the Python ≥3.9 standard library.
+If you later add skills that hit external APIs, install what you need there.
+
+```bash
+# Nothing needed for the demo 🎉
+```
+
+### 3  —  Run the Demo
 
 ```bash
 python implementation.py
 ```
 
----
-
-## Usage
-
-### Create an Agent
-
-```python
-from aiAgent import AIAgent, Priority
-
-agent = AIAgent(
-    name="Assistant",
-    personality={
-        "traits": ["helpful", "analytical"],
-        "learning_rate": 0.2,
-        "curiosity": 0.8
-    }
-)
-```
-
-### Interact with the Agent
-
-```python
-response = agent.process_input("Hello! How are you today?")
-print(response)
-```
-
-### Add Goals and Tasks
-
-```python
-agent.add_goal("Help user with daily tasks", Priority.HIGH)
-```
-
-### Register Custom Skills
-
-```python
-def weather_skill(text):
-    return "It's sunny!"
-
-agent.skill_registry.register("weather", weather_skill)
-```
-
-### Use the Chat Interface
-
-Uncomment the line in `implementation.py`:
-```python
-# chat_with_agent(agent)
-```
-Then run the script for an interactive session.
+When prompted, type messages and watch the agent respond.
 
 ---
 
-## Advanced Examples
+## Extending the Demo 🔧
 
-- **Personal Assistant:** Extend `AIAgent` to create specialized assistants.
-- **Save/Load State:** Use provided functions to persist agent progress.
-- **Multi-Agent Teams:** Instantiate and coordinate multiple agents.
+1. **Add a custom skill**
 
----
+   ```python
+   def weather_skill(text):
+       return "It’s always sunny in the demo!"
 
-## Best Practices
-
-- Save agent state regularly.
-- Clean up old memories as needed.
-- Group related skills into modules.
-- Handle errors gracefully.
-- Respect privacy and sensitive data.
+   agent.skill_registry.register("weather", weather_skill)
+   ```
+2. **Persist state** between sessions with `agent.save_state('state.pkl')` and `agent.load_state('state.pkl')`.
+3. **Scale up**: Gradually incorporate real LLM calls, web scraping, or multi‑agent coordination once you’re ready to pay for tokens.
 
 ---
 
-## Integration Ideas
+## Advanced / Full‑Featured Version 🌟
 
-- **OpenAI GPT:** Add advanced language skills.
-- **Database Access:** Query and summarize data.
-- **Web Scraping:** Fetch and process online information.
-
-See the "Integration Ideas" section in `implementation.py` for code templates.
+Looking for multi‑agent collaboration, Gemini integration, and a skill zoo?
+Check out the **full** framework in the `main` branch (`/full‑version` folder). Migrate gradually: the core API remains the same.
 
 ---
-
 
 ## Author
 
-Ray Xue
+**Ray Xue** – tinkerer, learner, perpetual monster consumer.
 
----
-
-## Acknowledgments
-
-- Inspired by modular AI agent architectures.
-- Uses Python standard library for maximum compatibility.
-
----
-
-Enjoy building with your AI Agent
